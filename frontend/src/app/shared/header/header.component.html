@@ -1,0 +1,23 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="/">E-Ticaret</a>
+  </div>
+
+  <div class="navbar-menu">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Ana Sayfa</a>
+
+    <ng-container *ngIf="isAuthenticated$ | async">
+      <a routerLink="/products" routerLinkActive="active">Ürünler</a>
+      <div class="user-menu" *ngIf="currentUser$ | async as user">
+        <span class="user-name">{{ user.firstName }} {{ user.lastName }}</span>
+        <button class="logout-button" (click)="logout()">Çıkış Yap</button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!(isAuthenticated$ | async)">
+      <a routerLink="/auth/login" routerLinkActive="active">Giriş Yap</a>
+      <a routerLink="/auth/register" routerLinkActive="active">Kayıt Ol</a>
+    </ng-container>
+  </div>
+</nav>
+<p>header works!</p>

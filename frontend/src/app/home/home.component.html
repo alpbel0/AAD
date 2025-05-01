@@ -1,0 +1,184 @@
+<div class="container-fluid p-0">
+  <!-- Ana banner/slider -->
+  <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="assets/banners/banner1.jpg" class="d-block w-100" alt="Banner 1">
+        <div class="carousel-caption d-none d-md-block">
+          <h2>Yeni Sezon Ürünleri</h2>
+          <p>En yeni ürünler şimdi satışta!</p>
+          <button class="btn btn-primary">Alışverişe Başla</button>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="assets/banners/banner2.jpg" class="d-block w-100" alt="Banner 2">
+        <div class="carousel-caption d-none d-md-block">
+          <h2>Büyük İndirim Fırsatı</h2>
+          <p>Seçili ürünlerde %50'ye varan indirimler</p>
+          <button class="btn btn-primary">İndirimleri Keşfet</button>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="assets/banners/banner3.jpg" class="d-block w-100" alt="Banner 3">
+        <div class="carousel-caption d-none d-md-block">
+          <h2>Ücretsiz Kargo</h2>
+          <p>150 TL ve üzeri alışverişlerde ücretsiz kargo</p>
+          <button class="btn btn-primary">Detaylar</button>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Önceki</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Sonraki</span>
+    </button>
+  </div>
+
+  <!-- Ana kategoriler -->
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Kategoriler</h2>
+    <div class="row">
+      <div class="col-6 col-md-3 mb-4" *ngFor="let category of mainCategories$ | async">
+        <div class="card category-card">
+          <img [src]="category.imageUrl || 'assets/category-placeholder.jpg'" class="card-img-top" [alt]="category.name">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ category.name }}</h5>
+            <a [routerLink]="['/products']" [queryParams]="{category: category.id}" class="stretched-link"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Öne çıkan ürünler -->
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Öne Çıkan Ürünler</h2>
+      <a routerLink="/products" class="btn btn-outline-primary">Tümünü Gör</a>
+    </div>
+    
+    <div class="row">
+      <div class="col-6 col-md-3 mb-4" *ngFor="let product of featuredProducts$ | async">
+        <div class="card h-100 product-card">
+          <div class="position-relative">
+            <img [src]="product.images && product.images.length ? product.images[0].imageUrl : 'assets/placeholder.jpg'" 
+                 class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+            <span class="badge bg-primary position-absolute top-0 end-0 m-2" *ngIf="product.discountPrice">
+              İndirim
+            </span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-truncate">{{ product.name }}</h5>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-0">{{ product.price }} TL</h6>
+                <small *ngIf="product.discountPrice" class="text-decoration-line-through text-muted">
+                  {{ product.discountPrice }} TL
+                </small>
+              </div>
+              <div class="rating">
+                <span>{{ product.rating }} ★</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer d-grid">
+            <a [routerLink]="['/products', product.id]" class="btn btn-sm btn-outline-primary">Detaylar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Kampanyalar -->
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Kampanyalar</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card promo-card">
+          <img src="assets/promos/promo1.jpg" class="card-img" alt="Kampanya 1">
+          <div class="card-img-overlay d-flex flex-column justify-content-end">
+            <h3 class="card-title text-white">Elektronik Ürünlerde İndirim</h3>
+            <p class="card-text text-white">Seçili elektronik ürünlerde %20 indirim</p>
+            <a href="#" class="btn btn-light">Kampanyaya Git</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card promo-card">
+          <img src="assets/promos/promo2.jpg" class="card-img" alt="Kampanya 2">
+          <div class="card-img-overlay d-flex flex-column justify-content-end">
+            <h3 class="card-title text-white">Giyim Ürünlerinde Fırsat</h3>
+            <p class="card-text text-white">2 al 1 öde fırsatı</p>
+            <a href="#" class="btn btn-light">Kampanyaya Git</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Yeni ürünler -->
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Yeni Ürünler</h2>
+      <a routerLink="/products" [queryParams]="{sort: 'newest'}" class="btn btn-outline-primary">Tümünü Gör</a>
+    </div>
+    
+    <div class="row">
+      <div class="col-6 col-md-3 mb-4" *ngFor="let product of newProducts$ | async">
+        <div class="card h-100 product-card">
+          <div class="position-relative">
+            <img [src]="product.images && product.images.length ? product.images[0].imageUrl : 'assets/placeholder.jpg'" 
+                 class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+            <span class="badge bg-success position-absolute top-0 end-0 m-2">
+              Yeni
+            </span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-truncate">{{ product.name }}</h5>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-0">{{ product.price }} TL</h6>
+              </div>
+              <div class="rating">
+                <span>{{ product.rating }} ★</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer d-grid">
+            <a [routerLink]="['/products', product.id]" class="btn btn-sm btn-outline-primary">Detaylar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Öne çıkan satıcılar -->
+  <div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4">Öne Çıkan Satıcılar</h2>
+    <div class="row">
+      <div class="col-6 col-md-2 mb-4" *ngFor="let seller of featuredSellers$ | async">
+        <div class="card text-center h-100">
+          <img [src]="seller.logoUrl || 'assets/seller-placeholder.jpg'" class="card-img-top mx-auto mt-3" 
+               alt="{{ seller.storeName }}" style="width: 100px; height: 100px; object-fit: contain;">
+          <div class="card-body">
+            <h6 class="card-title">{{ seller.storeName }}</h6>
+            <div class="rating">
+              <small>{{ seller.rating }} ★ ({{ seller.totalReviews }})</small>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-sm btn-outline-secondary w-100">Mağazaya Git</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

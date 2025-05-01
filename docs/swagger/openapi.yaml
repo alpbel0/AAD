@@ -1,0 +1,479 @@
+openapi: 3.0.3
+info:
+  title: E-Ticaret Platformu API
+  description: E-Ticaret uygulaması için RESTful API
+  version: 1.0.0
+  contact:
+    email: info@example.com
+servers:
+  - url: /api
+    description: Varsayılan API Sunucusu
+
+tags:
+  - name: auth
+    description: Kimlik doğrulama ve yetkilendirme
+  - name: products
+    description: Ürün yönetimi
+  - name: cart
+    description: Sepet işlemleri
+  - name: orders
+    description: Sipariş yönetimi
+  - name: users
+    description: Kullanıcı yönetimi
+  - name: sellers
+    description: Satıcı işlemleri
+  - name: categories
+    description: Kategori yönetimi
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Kullanıcı girişi
+      description: E-posta ve şifre ile giriş yapma
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Başarılı giriş
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Geçersiz kimlik bilgileri
+  
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Yeni kullanıcı kaydı
+      description: Sisteme yeni kullanıcı kaydı
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Kullanıcı başarıyla oluşturuldu
+        '400':
+          description: Geçersiz istek (e-posta zaten kayıtlı, vb.)
+
+  /products:
+    get:
+      tags:
+        - products
+      summary: Ürünleri listele
+      description: Filtre ve sayfalama ile ürünleri getir
+      parameters:
+        - name: categoryId
+          in: query
+          description: Kategori ID'sine göre filtrele
+          schema:
+            type: integer
+        - name: minPrice
+          in: query
+          description: Minimum fiyat
+          schema:
+            type: number
+        - name: maxPrice
+          in: query
+          description: Maksimum fiyat
+          schema:
+            type: number
+        - name: searchTerm
+          in: query
+          description: Arama terimi
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Sayfa numarası (0'dan başlar)
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Sayfa başına sonuç sayısı
+          schema:
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: Sıralama (örn. price,desc)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Başarılı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedProductResponse'
+
+  /products/{id}:
+    get:
+      tags:
+        - products
+      summary: Ürün detayı
+      description: Belirli bir ürünün detaylarını getir
+      parameters:
+        - name: id
+          in: path
+          description: Ürün ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Başarılı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetailResponse'
+        '404':
+          description: Ürün bulunamadı
+
+  /cart:
+    get:
+      tags:
+        - cart
+      summary: Kullanıcının sepetini getir
+      description: Giriş yapmış kullanıcının sepetini getir
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Başarılı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartResponse'
+        '401':
+          description: Yetkilendirme hatası
+
+  /cart/add:
+    post:
+      tags:
+        - cart
+      summary: Sepete ürün ekle
+      description: Kullanıcının sepetine ürün ekle
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddToCartRequest'
+      responses:
+        '200':
+          description: Başarılı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItemResponse'
+        '400':
+          description: Geçersiz istek
+        '401':
+          description: Yetkilendirme hatası
+
+  /cart/{cartItemId}:
+    put:
+      tags:
+        - cart
+      summary: Sepet ürününü güncelle
+      description: Sepetteki bir ürünün miktarını güncelle
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: cartItemId
+          in: path
+          description: Sepet ürünü ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCartItemRequest'
+      responses:
+        '200':
+          description: Başarılı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItemResponse'
+        '404':
+          description: Sepet ürünü bulunamadı
+        '401':
+          description: Yetkilendirme hatası
+    delete:
+      tags:
+        - cart
+      summary: Sepetten ürün sil
+      description: Sepetten bir ürünü kaldır
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: cartItemId
+          in: path
+          description: Sepet ürünü ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Başarılı
+        '404':
+          description: Sepet ürünü bulunamadı
+        '401':
+          description: Yetkilendirme hatası
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        userId:
+          type: integer
+        role:
+          type: string
+          enum: [CUSTOMER, SELLER, ADMIN]
+    
+    RegisterRequest:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        phone:
+          type: string
+    
+    ProductResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: number
+        discountPrice:
+          type: number
+        mainImage:
+          type: string
+        rating:
+          type: number
+        ratingCount:
+          type: integer
+        seller:
+          type: string
+        categoryId:
+          type: integer
+        categoryName:
+          type: string
+    
+    PagedProductResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductResponse'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+    
+    ProductDetailResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        discountPrice:
+          type: number
+        images:
+          type: array
+          items:
+            type: string
+        rating:
+          type: number
+        ratingCount:
+          type: integer
+        seller:
+          $ref: '#/components/schemas/SellerResponse'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductAttributeResponse'
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductVariantResponse'
+        categoryId:
+          type: integer
+        categoryName:
+          type: string
+    
+    SellerResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        rating:
+          type: number
+        productCount:
+          type: integer
+    
+    ProductAttributeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        attributeName:
+          type: string
+        attributeValue:
+          type: string
+    
+    ProductVariantResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        variantName:
+          type: string
+        additionalPrice:
+          type: number
+        quantity:
+          type: integer
+        sku:
+          type: string
+        active:
+          type: boolean
+    
+    CartResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        totalItems:
+          type: integer
+        totalPrice:
+          type: number
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartItemResponse'
+    
+    CartItemResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        productId:
+          type: integer
+        productName:
+          type: string
+        productImage:
+          type: string
+        variantId:
+          type: integer
+        variantName:
+          type: string
+        quantity:
+          type: integer
+        unitPrice:
+          type: number
+        totalPrice:
+          type: number
+        addedAt:
+          type: string
+          format: date-time
+    
+    AddToCartRequest:
+      type: object
+      required:
+        - productId
+        - quantity
+      properties:
+        productId:
+          type: integer
+        variantId:
+          type: integer
+        quantity:
+          type: integer
+          minimum: 1
+          default: 1
+    
+    UpdateCartItemRequest:
+      type: object
+      required:
+        - quantity
+      properties:
+        quantity:
+          type: integer
+          minimum: 1 

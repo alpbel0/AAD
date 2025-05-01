@@ -1,0 +1,142 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Elektronik",
+      "slug": "elektronik",
+      "image": "https://example.com/images/categories/electronics.jpg",
+      "description": "Akıllı telefonlar, bilgisayarlar, tabletler ve diğer elektronik ürünler",
+      "parentId": null,
+      "active": true,
+      "featured": true,
+      "productCount": 458,
+      "subCategories": [
+        {
+          "id": 4,
+          "name": "Telefonlar",
+          "slug": "telefonlar",
+          "image": "https://example.com/images/categories/phones.jpg",
+          "description": "Akıllı telefonlar ve aksesuarlar",
+          "parentId": 1,
+          "active": true,
+          "featured": true,
+          "productCount": 156
+        },
+        {
+          "id": 5,
+          "name": "Bilgisayarlar",
+          "slug": "bilgisayarlar",
+          "image": "https://example.com/images/categories/computers.jpg",
+          "description": "Dizüstü, masaüstü bilgisayarlar ve aksesuarlar",
+          "parentId": 1,
+          "active": true,
+          "featured": true,
+          "productCount": 124
+        },
+        {
+          "id": 6,
+          "name": "Giyilebilir Teknoloji",
+          "slug": "giyilebilir-teknoloji",
+          "image": "https://example.com/images/categories/wearables.jpg",
+          "description": "Akıllı saatler, akıllı bileklikler ve diğer giyilebilir cihazlar",
+          "parentId": 1,
+          "active": true,
+          "featured": false,
+          "productCount": 86
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Giyim",
+      "slug": "giyim",
+      "image": "https://example.com/images/categories/clothing.jpg",
+      "description": "Kadın, erkek ve çocuk giyim ürünleri",
+      "parentId": null,
+      "active": true,
+      "featured": true,
+      "productCount": 687,
+      "subCategories": [
+        {
+          "id": 7,
+          "name": "Kadın Giyim",
+          "slug": "kadin-giyim",
+          "image": "https://example.com/images/categories/women-clothing.jpg",
+          "description": "Kadın giyim ürünleri",
+          "parentId": 2,
+          "active": true,
+          "featured": true,
+          "productCount": 325
+        },
+        {
+          "id": 8,
+          "name": "Erkek Giyim",
+          "slug": "erkek-giyim",
+          "image": "https://example.com/images/categories/men-clothing.jpg",
+          "description": "Erkek giyim ürünleri",
+          "parentId": 2,
+          "active": true,
+          "featured": true,
+          "productCount": 289
+        },
+        {
+          "id": 9,
+          "name": "Çocuk Giyim",
+          "slug": "cocuk-giyim",
+          "image": "https://example.com/images/categories/kids-clothing.jpg",
+          "description": "Çocuk giyim ürünleri",
+          "parentId": 2,
+          "active": true,
+          "featured": false,
+          "productCount": 73
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Ev & Yaşam",
+      "slug": "ev-yasam",
+      "image": "https://example.com/images/categories/home-living.jpg",
+      "description": "Mobilya, dekorasyon, mutfak gereçleri ve diğer ev ürünleri",
+      "parentId": null,
+      "active": true,
+      "featured": true,
+      "productCount": 543,
+      "subCategories": [
+        {
+          "id": 10,
+          "name": "Mobilya",
+          "slug": "mobilya",
+          "image": "https://example.com/images/categories/furniture.jpg",
+          "description": "Oturma odası, yatak odası ve diğer mobilyalar",
+          "parentId": 3,
+          "active": true,
+          "featured": true,
+          "productCount": 182
+        },
+        {
+          "id": 11,
+          "name": "Mutfak",
+          "slug": "mutfak",
+          "image": "https://example.com/images/categories/kitchen.jpg",
+          "description": "Mutfak gereçleri ve ekipmanları",
+          "parentId": 3,
+          "active": true,
+          "featured": false,
+          "productCount": 165
+        },
+        {
+          "id": 12,
+          "name": "Dekorasyon",
+          "slug": "dekorasyon",
+          "image": "https://example.com/images/categories/decoration.jpg",
+          "description": "Ev dekorasyon ürünleri",
+          "parentId": 3,
+          "active": true,
+          "featured": true,
+          "productCount": 196
+        }
+      ]
+    }
+  ]
+} 

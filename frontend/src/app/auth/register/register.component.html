@@ -1,0 +1,99 @@
+<div class="register-container">
+  <div class="register-form">
+    <h2>Kayıt Ol</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName">Ad</label>
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          placeholder="Adınız"
+        >
+        <div class="error-message" *ngIf="registerForm.get('firstName')?.errors?.['required'] && registerForm.get('firstName')?.touched">
+          Ad alanı gereklidir
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('firstName')?.errors?.['minlength'] && registerForm.get('firstName')?.touched">
+          Ad en az 2 karakter olmalıdır
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Soyad</label>
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          placeholder="Soyadınız"
+        >
+        <div class="error-message" *ngIf="registerForm.get('lastName')?.errors?.['required'] && registerForm.get('lastName')?.touched">
+          Soyad alanı gereklidir
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('lastName')?.errors?.['minlength'] && registerForm.get('lastName')?.touched">
+          Soyad en az 2 karakter olmalıdır
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-posta</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="E-posta adresiniz"
+        >
+        <div class="error-message" *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
+          E-posta adresi gereklidir
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.touched">
+          Geçerli bir e-posta adresi giriniz
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Şifre</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Şifreniz"
+        >
+        <div class="error-message" *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
+          Şifre gereklidir
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched">
+          Şifre en az 6 karakter olmalıdır
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Şifre Tekrarı</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          placeholder="Şifrenizi tekrar giriniz"
+        >
+        <div class="error-message" *ngIf="registerForm.get('confirmPassword')?.errors?.['required'] && registerForm.get('confirmPassword')?.touched">
+          Şifre tekrarı gereklidir
+        </div>
+        <div class="error-message" *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+          Şifreler eşleşmiyor
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="error$ | async">
+        {{ error$ | async }}
+      </div>
+
+      <button type="submit" [disabled]="registerForm.invalid || (loading$ | async)">
+        <span *ngIf="loading$ | async">Kayıt yapılıyor...</span>
+        <span *ngIf="!(loading$ | async)">Kayıt Ol</span>
+      </button>
+
+      <div class="login-link">
+        Zaten hesabınız var mı? <a routerLink="/auth/login">Giriş Yap</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,250 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Akıllı Telefon XYZ",
+      "description": "Son teknoloji akıllı telefon, 6.5 inç AMOLED ekran, 128GB depolama",
+      "price": 7999.99,
+      "discountPrice": 7499.99,
+      "images": [
+        "https://example.com/images/phone1_1.jpg",
+        "https://example.com/images/phone1_2.jpg",
+        "https://example.com/images/phone1_3.jpg"
+      ],
+      "rating": 4.7,
+      "ratingCount": 156,
+      "categoryId": 1,
+      "categoryName": "Elektronik",
+      "seller": {
+        "id": 1,
+        "name": "Elektronik Dünyası",
+        "rating": 4.8,
+        "productCount": 243
+      },
+      "attributes": [
+        {
+          "id": 1,
+          "attributeName": "İşlemci",
+          "attributeValue": "Octa-core 2.8 GHz"
+        },
+        {
+          "id": 2,
+          "attributeName": "RAM",
+          "attributeValue": "8 GB"
+        },
+        {
+          "id": 3,
+          "attributeName": "Depolama",
+          "attributeValue": "128 GB"
+        },
+        {
+          "id": 4,
+          "attributeName": "Ekran",
+          "attributeValue": "6.5 inç AMOLED"
+        },
+        {
+          "id": 5,
+          "attributeName": "Kamera",
+          "attributeValue": "48 MP + 12 MP + 8 MP"
+        },
+        {
+          "id": 6,
+          "attributeName": "Batarya",
+          "attributeValue": "4500 mAh"
+        }
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "variantName": "Siyah",
+          "additionalPrice": 0,
+          "quantity": 45,
+          "sku": "XYZ-BLK-128",
+          "active": true
+        },
+        {
+          "id": 2,
+          "variantName": "Beyaz",
+          "additionalPrice": 0,
+          "quantity": 32,
+          "sku": "XYZ-WHT-128",
+          "active": true
+        },
+        {
+          "id": 3,
+          "variantName": "Mavi",
+          "additionalPrice": 200,
+          "quantity": 18,
+          "sku": "XYZ-BLU-128",
+          "active": true
+        }
+      ],
+      "active": true,
+      "approved": true,
+      "createdAt": "2025-04-15T12:30:45Z",
+      "updatedAt": "2025-04-29T09:15:22Z"
+    },
+    {
+      "id": 2,
+      "name": "Spor Ayakkabı Model ABC",
+      "description": "Hafif ve dayanıklı spor ayakkabı, yürüyüş ve koşu için ideal",
+      "price": 899.90,
+      "discountPrice": 699.90,
+      "images": [
+        "https://example.com/images/shoe1_1.jpg",
+        "https://example.com/images/shoe1_2.jpg",
+        "https://example.com/images/shoe1_3.jpg"
+      ],
+      "rating": 4.5,
+      "ratingCount": 87,
+      "categoryId": 2,
+      "categoryName": "Ayakkabı",
+      "seller": {
+        "id": 2,
+        "name": "Spor Dünyası",
+        "rating": 4.6,
+        "productCount": 156
+      },
+      "attributes": [
+        {
+          "id": 7,
+          "attributeName": "Malzeme",
+          "attributeValue": "Tekstil ve Sentetik"
+        },
+        {
+          "id": 8,
+          "attributeName": "Taban",
+          "attributeValue": "Kauçuk"
+        },
+        {
+          "id": 9,
+          "attributeName": "Kullanım",
+          "attributeValue": "Günlük, Spor"
+        }
+      ],
+      "variants": [
+        {
+          "id": 4,
+          "variantName": "Siyah, 40",
+          "additionalPrice": 0,
+          "quantity": 25,
+          "sku": "ABC-BLK-40",
+          "active": true
+        },
+        {
+          "id": 5,
+          "variantName": "Siyah, 41",
+          "additionalPrice": 0,
+          "quantity": 18,
+          "sku": "ABC-BLK-41",
+          "active": true
+        },
+        {
+          "id": 6,
+          "variantName": "Siyah, 42",
+          "additionalPrice": 0,
+          "quantity": 12,
+          "sku": "ABC-BLK-42",
+          "active": true
+        },
+        {
+          "id": 7,
+          "variantName": "Beyaz, 40",
+          "additionalPrice": 0,
+          "quantity": 20,
+          "sku": "ABC-WHT-40",
+          "active": true
+        },
+        {
+          "id": 8,
+          "variantName": "Beyaz, 41",
+          "additionalPrice": 0,
+          "quantity": 15,
+          "sku": "ABC-WHT-41",
+          "active": true
+        },
+        {
+          "id": 9,
+          "variantName": "Beyaz, 42",
+          "additionalPrice": 0,
+          "quantity": 10,
+          "sku": "ABC-WHT-42",
+          "active": true
+        }
+      ],
+      "active": true,
+      "approved": true,
+      "createdAt": "2025-04-10T14:45:30Z",
+      "updatedAt": "2025-04-25T11:20:15Z"
+    },
+    {
+      "id": 3,
+      "name": "Akıllı Saat Pro",
+      "description": "Kalp ritmi, uyku takibi ve egzersiz izleme özellikleri ile tam donanımlı akıllı saat",
+      "price": 2499.90,
+      "discountPrice": null,
+      "images": [
+        "https://example.com/images/watch1_1.jpg",
+        "https://example.com/images/watch1_2.jpg"
+      ],
+      "rating": 4.8,
+      "ratingCount": 65,
+      "categoryId": 1,
+      "categoryName": "Elektronik",
+      "seller": {
+        "id": 1,
+        "name": "Elektronik Dünyası",
+        "rating": 4.8,
+        "productCount": 243
+      },
+      "attributes": [
+        {
+          "id": 10,
+          "attributeName": "Ekran",
+          "attributeValue": "1.4 inç AMOLED"
+        },
+        {
+          "id": 11,
+          "attributeName": "Bağlantı",
+          "attributeValue": "Bluetooth 5.0, WiFi"
+        },
+        {
+          "id": 12,
+          "attributeName": "Batarya Ömrü",
+          "attributeValue": "7 gün"
+        },
+        {
+          "id": 13,
+          "attributeName": "Su Geçirmezlik",
+          "attributeValue": "5 ATM"
+        }
+      ],
+      "variants": [
+        {
+          "id": 10,
+          "variantName": "Siyah",
+          "additionalPrice": 0,
+          "quantity": 30,
+          "sku": "WATCH-BLK",
+          "active": true
+        },
+        {
+          "id": 11,
+          "variantName": "Gümüş",
+          "additionalPrice": 100,
+          "quantity": 22,
+          "sku": "WATCH-SLV",
+          "active": true
+        }
+      ],
+      "active": true,
+      "approved": true,
+      "createdAt": "2025-04-18T09:30:15Z",
+      "updatedAt": "2025-04-28T15:10:45Z"
+    }
+  ],
+  "total": 3,
+  "page": 0,
+  "size": 10,
+  "totalPages": 1
+} 

@@ -1,0 +1,46 @@
+{
+  "id": 1,
+  "userId": 5,
+  "totalItems": 3,
+  "totalPrice": 8649.79,
+  "createdAt": "2025-04-25T10:15:30Z",
+  "updatedAt": "2025-04-30T14:45:22Z",
+  "items": [
+    {
+      "id": 1,
+      "productId": 1,
+      "productName": "Akıllı Telefon XYZ",
+      "productImage": "https://example.com/images/phone1_1.jpg",
+      "variantId": 1,
+      "variantName": "Siyah",
+      "quantity": 1,
+      "unitPrice": 7499.99,
+      "totalPrice": 7499.99,
+      "addedAt": "2025-04-28T16:30:45Z"
+    },
+    {
+      "id": 2,
+      "productId": 2,
+      "productName": "Spor Ayakkabı Model ABC",
+      "productImage": "https://example.com/images/shoe1_1.jpg",
+      "variantId": 5,
+      "variantName": "Siyah, 41",
+      "quantity": 1,
+      "unitPrice": 699.90,
+      "totalPrice": 699.90,
+      "addedAt": "2025-04-29T11:20:15Z"
+    },
+    {
+      "id": 3,
+      "productId": 3,
+      "productName": "Akıllı Saat Pro",
+      "productImage": "https://example.com/images/watch1_1.jpg",
+      "variantId": 11,
+      "variantName": "Gümüş",
+      "quantity": 1,
+      "unitPrice": 2599.90,
+      "totalPrice": 2599.90,
+      "addedAt": "2025-04-30T14:45:22Z"
+    }
+  ]
+} 

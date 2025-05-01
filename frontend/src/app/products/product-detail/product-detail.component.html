@@ -1,0 +1,201 @@
+<div class="container mt-4" *ngIf="product$ | async as product">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Ana Sayfa</a></li>
+      <li class="breadcrumb-item"><a routerLink="/products">Ürünler</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="row">
+    <!-- Ürün Görselleri -->
+    <div class="col-md-5">
+      <div class="card">
+        <div *ngIf="product.images && product.images.length">
+          <img [src]="selectedImage || product.images[0].imageUrl" class="card-img-top main-image" [alt]="product.name">
+          
+          <div class="row mt-2">
+            <div class="col-3 mb-2" *ngFor="let image of product.images">
+              <img [src]="image.imageUrl" 
+                   [class.selected-thumbnail]="selectedImage === image.imageUrl"
+                   class="img-thumbnail thumbnail-image" 
+                   [alt]="product.name"
+                   (click)="selectedImage = image.imageUrl">
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="!product.images || !product.images.length">
+          <img src="assets/placeholder.jpg" class="card-img-top" [alt]="product.name">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ürün Bilgileri -->
+    <div class="col-md-7">
+      <h2>{{ product.name }}</h2>
+      
+      <div class="d-flex align-items-center mb-3">
+        <div class="rating me-2">
+          <span class="text-warning">{{ '★'.repeat(Math.floor(product.rating)) }}</span>
+          <span class="text-muted">{{ '★'.repeat(5 - Math.floor(product.rating)) }}</span>
+        </div>
+        <span>({{ product.totalReviews }} değerlendirme)</span>
+      </div>
+      
+      <div class="price-section mb-3">
+        <h3 class="mb-1">{{ product.price }} TL</h3>
+        <div *ngIf="product.discountPrice" class="text-decoration-line-through text-muted">
+          {{ product.discountPrice }} TL
+        </div>
+        <div *ngIf="product.quantity <= 5 && product.quantity > 0" class="text-danger mt-1">
+          Son {{ product.quantity }} ürün!
+        </div>
+        <div *ngIf="product.quantity === 0" class="text-danger fw-bold mt-1">
+          Stokta yok!
+        </div>
+      </div>
+      
+      <div class="description-section mb-4">
+        <h5>Ürün Açıklaması</h5>
+        <p>{{ product.description }}</p>
+      </div>
+      
+      <!-- Varyantlar varsa -->
+      <div class="variants-section mb-4" *ngIf="product.variants && product.variants.length">
+        <h5>Varyantlar</h5>
+        <div class="btn-group mb-3">
+          <button 
+            *ngFor="let variant of product.variants" 
+            type="button" 
+            class="btn btn-outline-secondary"
+            [class.active]="selectedVariant?.id === variant.id"
+            (click)="selectVariant(variant)">
+            {{ variant.variantName }}
+          </button>
+        </div>
+      </div>
+      
+      <!-- Adet seçimi -->
+      <div class="quantity-section mb-4">
+        <h5>Adet</h5>
+        <div class="d-flex align-items-center">
+          <button class="btn btn-outline-secondary" (click)="decreaseQuantity()">-</button>
+          <input type="number" class="form-control mx-2" style="width: 70px;" [(ngModel)]="quantity" min="1" max="10">
+          <button class="btn btn-outline-secondary" (click)="increaseQuantity()">+</button>
+        </div>
+      </div>
+      
+      <!-- Butonlar -->
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" [disabled]="product.quantity === 0" (click)="addToCart()">
+          Sepete Ekle
+        </button>
+        <button class="btn btn-outline-danger" (click)="addToWishlist()">
+          <i class="bi bi-heart"></i> Favorilere Ekle
+        </button>
+      </div>
+      
+      <!-- Satıcı Bilgisi -->
+      <div class="seller-section mt-4">
+        <h5>Satıcı</h5>
+        <div class="d-flex align-items-center">
+          <img [src]="product.seller.logoUrl || 'assets/seller-placeholder.jpg'" alt="Satıcı Logo" width="40" height="40" class="me-2">
+          <div>
+            <h6 class="mb-0">{{ product.seller.storeName }}</h6>
+            <div class="small text-muted">
+              <span class="me-2">{{ product.seller.rating }} ★</span>
+              <span>{{ product.seller.totalReviews }} değerlendirme</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Ürün Özellikleri ve Yorumlar -->
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs" id="productTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab" aria-controls="specs" aria-selected="true">Özellikler</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Değerlendirmeler</button>
+        </li>
+      </ul>
+      
+      <div class="tab-content p-3 border border-top-0" id="productTabContent">
+        <!-- Ürün Özellikleri -->
+        <div class="tab-pane fade show active" id="specs" role="tabpanel" aria-labelledby="specs-tab">
+          <table class="table table-striped">
+            <tbody>
+              <tr *ngFor="let attr of product.attributes">
+                <th scope="row" style="width: 30%;">{{ attr.attributeName }}</th>
+                <td>{{ attr.attributeValue }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Değerlendirmeler -->
+        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+          <div *ngIf="reviews$ | async as reviews">
+            <div *ngIf="reviews.length > 0; else noReviews">
+              <div class="review-item p-3 border-bottom" *ngFor="let review of reviews">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <div>
+                    <h6 class="mb-0">{{ review.user.firstName }} {{ review.user.lastName.charAt(0) }}.</h6>
+                    <small class="text-muted">{{ review.createdAt | date }}</small>
+                  </div>
+                  <div class="rating">
+                    <span class="text-warning">{{ '★'.repeat(review.rating) }}</span>
+                    <span class="text-muted">{{ '★'.repeat(5 - review.rating) }}</span>
+                  </div>
+                </div>
+                <p>{{ review.comment }}</p>
+              </div>
+            </div>
+            
+            <ng-template #noReviews>
+              <div class="alert alert-info">
+                Bu ürün için henüz değerlendirme bulunmuyor.
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Benzer Ürünler -->
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h4>Benzer Ürünler</h4>
+    </div>
+    
+    <div class="col-6 col-md-3 mb-4" *ngFor="let relatedProduct of relatedProducts$ | async">
+      <div class="card h-100">
+        <img [src]="relatedProduct.images && relatedProduct.images.length ? relatedProduct.images[0].imageUrl : 'assets/placeholder.jpg'" 
+             class="card-img-top" [alt]="relatedProduct.name" style="height: 150px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title text-truncate">{{ relatedProduct.name }}</h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">{{ relatedProduct.price }} TL</h6>
+            <small class="rating">{{ relatedProduct.rating }} ★</small>
+          </div>
+        </div>
+        <div class="card-footer d-grid">
+          <a [routerLink]="['/products', relatedProduct.id]" class="btn btn-sm btn-outline-primary">Detaylar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Yükleme ekranı -->
+<div class="d-flex justify-content-center mt-5 pt-5" *ngIf="!(product$ | async)">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Yükleniyor...</span>
+  </div>
+</div>
